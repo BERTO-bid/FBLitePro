@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/emailRoot"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#1a0050">
+
+    <TextView
+        android:id="@+id/tvCurrentEmail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:textColor="#cc99ff"
+        android:textSize="13sp"
+        android:background="#22ffffff"
+        android:text="Pilih provider email"/>
+
+    <TextView
+        android:id="@+id/tvStatus"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dp"
+        android:textColor="#888888"
+        android:textSize="11sp"
+        android:text="Pilih provider lalu klik ✉️ di floating bar"/>
+
+    <ListView
+        android:id="@+id/lvInbox"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:divider="#33ffffff"
+        android:dividerHeight="1dp"/>
+
+    <Button
+        android:id="@+id/btnGenEmail"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:text="INFO CARA PAKAI"
+        android:textColor="#ffffff"
+        android:background="#6600ff"
+        android:layout_margin="8dp"/>
+
+</LinearLayout>

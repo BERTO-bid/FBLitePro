@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="300dp"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="20dp"
+    android:background="@drawable/dialog_bg">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="🔐 Generator 2FA (TOTP)"
+        android:textColor="#C9D1D9"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="12dp"/>
+
+    <EditText
+        android:id="@+id/etSecret"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Secret Key (JBSWY3DPEHPK3PXP)"
+        android:textColor="#C9D1D9"
+        android:textColorHint="#555"
+        android:background="@drawable/input_bg"
+        android:padding="12dp"
+        android:inputType="textVisiblePassword"
+        android:layout_marginBottom="10dp"/>
+
+    <Button
+        android:id="@+id/btnGet"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:text="⚡ Generate"
+        android:textColor="#fff"
+        android:layout_marginBottom="14dp"
+        style="@style/FlatBtn"/>
+
+    <!-- TOTP display -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:background="@drawable/totp_bg"
+        android:padding="14dp"
+        android:layout_marginBottom="12dp">
+
+        <TextView
+            android:id="@+id/tvTotp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="------"
+            android:textColor="#58A6FF"
+            android:textSize="40sp"
+            android:textStyle="bold"
+            android:letterSpacing="0.3"
+            android:layout_marginBottom="8dp"/>
+
+        <ProgressBar
+            android:id="@+id/progressTotp"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="5dp"
+            android:max="100"
+            android:progress="100"
+            android:progressTint="#58A6FF"
+            android:layout_marginBottom="6dp"/>
+
+        <TextView
+            android:id="@+id/tvCountdown"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Berlaku: 30s"
+            android:textColor="#666"
+            android:textSize="11sp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btnCopyTotp"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="42dp"
+            android:text="📋 Salin"
+            android:textColor="#3FB950"
+            android:layout_marginEnd="8dp"
+            style="@style/FlatBtn"/>
+
+        <Button
+            android:id="@+id/btnClose2FA"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="42dp"
+            android:text="✖ Tutup"
+            android:textColor="#F85149"
+            style="@style/FlatBtn"/>
+
+    </LinearLayout>
+
+</LinearLayout>
