@@ -1,0 +1,21 @@
+{
+  "assets/rtc/icons/back_arrow.png": "eef7173e5161cca098fd7a6d1620c4fafd0e08c4694dc034ed87fada030218fc",
+  "assets/rtc/icons/camera_disabled.png": "bcc9c13b6fd355824bf861a296ee2946d04ceb93735a00337aaf9db5a38dd122",
+  "assets/rtc/icons/camera_off.png": "001ac3c9ef14fadd2c1cfb3a720e1858fd470e2e36b0510e24c47924521ad098",
+  "assets/rtc/icons/camera_on.png": "6b17a4f5f27c2127bf7b144ea4c89aa9ae20b862472f11ad92a3f7dfdad10315",
+  "assets/rtc/icons/camera_switch.png": "ecf9231cf7c15ebafd2399ec6832991b7929a8e1464aa449e36b4b1b912da43a",
+  "assets/rtc/icons/camera_switch_disabled.png": "4f3a9aaad2a4078f6e881e4dee9831d2a6e1f40760c1a86889abeda7291a9299",
+  "assets/rtc/icons/cross.png": "45eee36f07c6e48df3668e2f6cc564a91e814acf2dce398e0002424744d56d96",
+  "assets/rtc/icons/microphone_off.png": "dc8de0b42a00d04554671ca67635d8e16b513a2fdc50c4acc40aafde6fb99668",
+  "assets/rtc/icons/microphone_on.png": "e5a34b64ac63ed770d6a4c60dcc3ec44cff034e2522d0088d870dd40e1baed43",
+  "assets/rtc/icons/phone.png": "094d5b8a07a0bf0f17480fd1e3cffe5863b7e1a43ad0ea6ef48937ca1029d50d",
+  "assets/rtc/icons/phone_down.png": "a8154829a5635ad8566db1ce8cf9fbc8cc3f0ce24168efca9e7b1547a3ab6daa",
+  "assets/rtc/icons/speaker_off.png": "0401de7862e9a14a37f0df1901ca044fd4dda2850ada6dcce5e05f9af38363ab",
+  "assets/rtc/icons/speaker_on.png": "65b39be22433701535c3f73ca098998fa16d280af92392cbd48e06210f5759bf",
+  "assets/rtc/icons/star.png": "c416ba16366d8b18ea92b02df12a7a0d136e9aa4f746eac4929d3c9bea65a6aa",
+  "assets/rtc/icons/star_filled.png": "b8ce0b37472d7dc440190725f8f5ce2f04d9387d01f712cc0e20fd2ccdb7505c",
+  "assets/rtc/libs.spk.xz": "419ae074c9a110b665d6fe8fd59c02dd1be731d9c03a0ed5fc4182140f6f9663",
+  "assets/rtc/libs.txt": "64d01747e9effcaa81b4998b84dbb3284fab9d8f34a0eb90c8049b77c89b287f",
+  "assets/rtc/metadata.txt": "d9dea7edcd7d09d9768db02c8c54c289ed513f0e2ff8bbad7a7b5d2d1de3b404",
+  "assets/rtc/store-0.dex.spo": "230d2e4a33fb72cd24937f689cbbfc94101a28c8dfd7e256b746de06915c0025"
+}

@@ -1,0 +1,92 @@
+{
+  "layout": {
+    "bloks_payload": {
+      "data": [
+        {
+          "id": "x6tva75qg",
+          "type": "ls",
+          "data": {
+            "initial": 0
+          }
+        }
+      ],
+      "error_attribution": {
+        "logging_id": "{\"callsite\":\"{\\\"product\\\":\\\"fblite\\\",\\\"feature\\\":\\\"embedded_async_component_template\\\",\\\"oncall\\\":\\\"lite_client_product_infra\\\"}\",\"push_phase\":\"sandcastle\",\"version\":1,\"request_id\":\"AtVpzvUxFMsFOngGa7WH43C\",\"www_revision\":1029096053}",
+        "source_map_id": "0EaV4WhWbOhQtJ0qvYi5Mw:FrsJZIuE"
+      },
+      "tree": {
+        "㐈": {
+          " ": [
+            {
+              "㗥": {
+                " ": [
+                  {
+                    "㐈": {
+                      " ": [
+                        {
+                          "㐈": {
+                            " ": []
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "㐈": {
+                      " ": [],
+                      "!": "fhgjtq:2"
+                    }
+                  }
+                ],
+                "$": true,
+                "\u0085": [
+                  {
+                    "㾶": {
+                      "#": "(bk.action.core.Apply, (bk.action.core.FuncConst, (bk.action.core.If, (bk.action.core.If, (bk.action.core.If, (bk.action.f32.Eq, \"resolved_async\", (bk.action.core.GetArg, 1)), true, (bk.action.f32.Eq, \"pending\", (bk.action.core.GetArg, 1))), (bk.action.f32.Eq, (bk.action.bloks.GetVariable2, \"x6tva75qg\"), 0), false), (bk.action.animated.Start, (bk.action.animated.Create, (bk.action.core.FuncConst, (bk.action.bloks.WriteLocalState, \"x6tva75qg\", (bk.action.animated.GetCurrentValue, (bk.action.core.GetArg, 0)), 0)), null, 0, 1, 0.25, null)), null)), (bk.action.core.GetArg, 0), (bk.action.core.GetArg, 2))",
+                      "\u0087": [
+                        ")",
+                        "(bk.action.core.If, (null, (bk.action.bloks.GetVariable2, \"query_info_x6tva75q9\")), null, (bk.action.map.Get, (bk.action.core.Coalesce, (bk.action.bloks.GetVariable2, \"query_info_x6tva75q9\"), (bk.action.mins.Raise, \"asNonnull got null\")), \"resolution_type\"))"
+                      ]
+                    }
+                  }
+                ],
+                "\u0087": [
+                  "#",
+                  "(bk.action.core.If, (bk.action.f32.Eq, \"resolved_sync\", (bk.action.core.If, (null, (bk.action.bloks.GetVariable2, \"query_info_x6tva75q9\")), null, (bk.action.map.Get, (bk.action.core.Coalesce, (bk.action.bloks.GetVariable2, \"query_info_x6tva75q9\"), (bk.action.mins.Raise, \"asNonnull got null\")), \"resolution_type\"))), 1, (bk.action.bloks.GetVariable2, \"x6tva75qg\"))"
+                ]
+              }
+            }
+          ],
+          "\u0085": [
+            {
+              "㾶": {
+                "#": "(bk.action.core.Apply, (bk.action.core.FuncConst, (bk.action.core.TakeLast, (bk.action.core.If, (bk.action.f32.Eq, \"failed\", (bk.action.core.GetArg, 1)), (bk.action.core.Apply, (bk.action.core.FuncConst, 1), (bk.action.core.GetArg, 0)), null), (bk.action.core.If, (bk.action.core.If, (bk.action.f32.Eq, \"resolved_sync\", (bk.action.core.GetArg, 1)), true, (bk.action.f32.Eq, \"resolved_async\", (bk.action.core.GetArg, 1))), (bk.action.core.Apply, (bk.action.core.FuncConst, 1), (bk.action.core.GetArg, 0)), null))), (bk.action.core.GetArg, 0), (bk.action.core.GetArg, 2))",
+                "\u0087": [
+                  ")",
+                  "(bk.action.core.If, (null, (bk.action.bloks.GetVariable2, \"query_info_x6tva75q9\")), null, (bk.action.map.Get, (bk.action.core.Coalesce, (bk.action.bloks.GetVariable2, \"query_info_x6tva75q9\"), (bk.action.mins.Raise, \"asNonnull got null\")), \"resolution_type\"))"
+                ]
+              }
+            },
+            {
+              "㙚": {
+                ")": "(bk.action.bloks.FetchAsyncComponents, (bk.action.bloks.GetParameter, \"__infra__app_id\"), (bk.action.mins.CallRuntime, 6), (bk.action.i64.Const, 14400), (bk.action.tree.Make, 16376, 36, \"fetch\", 38, \"x6tva75q9\", 40, false, 41, false, 43, (bk.action.array.Make)))"
+              }
+            }
+          ]
+        }
+      },
+      "component_queries": [
+        {
+          "id": "x6tva75q9",
+          "targets": {
+            "__infra__component_id": "fhgjtq:2"
+          },
+          "app_id_expr": "(bk.action.bloks.GetParameter, \"__infra__app_id\")",
+          "client_params": "(bk.action.map.Merge, (bk.action.bloks.GetParameter, \"__infra__client_params\"), (bk.action.map.Make, (bk.action.array.Make, \"__ref_store\"), (bk.action.array.Make, (bk.action.mins.CallRuntime, 6))))",
+          "cache_ttl_expr": "(bk.action.bloks.GetParameter, \"__infra__cache_ttl\")",
+          "is_scoped": true
+        }
+      ]
+    }
+  }
+}

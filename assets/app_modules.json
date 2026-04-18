@@ -1,0 +1,293 @@
+{
+  "built_in": [],
+  "downloadable": [
+    {
+      "disabled": false,
+      "hash": "d2d34890b13c406a4027d723d92b38f87a8b811796c81b9b5c930d21caba3275",
+      "name": "audiencenetwork",
+      "requires_native": false
+    },
+    {
+      "disabled": false,
+      "hash": "641ec19b3fd6dac7fb4cd41b88d58d6589bff15f5547253a041f1daa21c072e0",
+      "name": "avif",
+      "requires_native": true
+    },
+    {
+      "disabled": false,
+      "hash": "6b43fdc5c612bc9ef1cec844f89f3fbe172c31fbeac6c3f092db2ed8d9fa60e1",
+      "name": "blokscamera",
+      "requires_native": true
+    },
+    {
+      "disabled": false,
+      "hash": "104ef5562ac6b36b1ec951d98c638a52430c6758147fa8be96b15390d87aaa96",
+      "name": "boost",
+      "requires_native": true
+    },
+    {
+      "disabled": false,
+      "hash": "6ebd1fb0cec66a4b330860a654747ac8c3edee567cf8ab8cd65a886e4090ae3b",
+      "name": "camera",
+      "requires_native": false
+    },
+    {
+      "disabled": false,
+      "hash": "d1794fdc571ac6c9cdea67c2ae6185114eec3016b0bf68e70fced0f89554cf80",
+      "name": "data1",
+      "requires_native": false
+    },
+    {
+      "disabled": false,
+      "hash": "6f7d3fec4c012fa64485df47dcdc8652f3ca70f14ae62ba92631e1232062ebd7",
+      "name": "data1024",
+      "requires_native": false
+    },
+    {
+      "disabled": false,
+      "hash": "d757aaf01344e58ac0480b1f09d45497c4a05f0bb6f889eb328b29394b6a48c5",
+      "name": "data128",
+      "requires_native": false
+    },
+    {
+      "disabled": false,
+      "hash": "d6e7746851322ba054f3cf9081e7849bdba7a95770e25e7f6948f47dbd9930ba",
+      "name": "data2048",
+      "requires_native": false
+    },
+    {
+      "disabled": false,
+      "hash": "7a543f973985e111565dd2ee0d4cddc9e3ae3bce68a33b9c3d42707e4ef4c109",
+      "name": "data256",
+      "requires_native": false
+    },
+    {
+      "disabled": false,
+      "hash": "e3ee9b75beeb07d503407ada426de93191e4110c754023a364b6cf22fa41a7e4",
+      "name": "data512",
+      "requires_native": false
+    },
+    {
+      "disabled": false,
+      "hash": "80d4e0ede3dfb32fb5c3c2f862a2019cc18a9cf8078530cc2f782e24ac7173e5",
+      "name": "fizz",
+      "requires_native": true
+    },
+    {
+      "disabled": false,
+      "hash": "f8cefb17711eeb9dd875aa21cd9292a76379ccc3aa484c0c3b9ace172dc7aa95",
+      "name": "heroplayer",
+      "requires_native": true
+    },
+    {
+      "disabled": false,
+      "hash": "48cdc4df5a3a6e079cf1040de8a38ff658013e16535008a6ec254120d1ac0bff",
+      "name": "inappbrowser",
+      "requires_native": false
+    },
+    {
+      "disabled": false,
+      "hash": "7429d4a19545db3da4bfecf13355877e13b081686059ff3d557afcd77463cbfa",
+      "name": "libunwindstack",
+      "requires_native": true
+    },
+    {
+      "disabled": false,
+      "hash": "7a505564fa7577424460d835e63fa00a37b933f492180352e8fe5cb86e373a42",
+      "name": "mediastreaming",
+      "requires_native": true
+    },
+    {
+      "disabled": false,
+      "hash": "75f6a18d2c7a05a57648761ccd01f4cb5ab6c38b0f1188a37beaae4c07025f2e",
+      "name": "mnshttp",
+      "requires_native": true
+    },
+    {
+      "disabled": false,
+      "hash": "731324e0570d1ab7158774025f97097d06fe33f83715e3e7b87c89866105061b",
+      "name": "msys",
+      "requires_native": true
+    },
+    {
+      "disabled": false,
+      "hash": "a1df5077516db30542a3ce5c32375ed00c8401d0963e0d5d66fa754b2e402477",
+      "name": "msysinfra",
+      "requires_native": true
+    },
+    {
+      "disabled": false,
+      "hash": "b5bdfdf488f90a7af39900102df7f5280b672336ddc014b8c67222d2b266f905",
+      "name": "multisignalanrdetector",
+      "requires_native": true
+    },
+    {
+      "disabled": false,
+      "hash": "caa3e83abb0ecebfd3b2e6b6fbe35d2b23f6236d00d700dcce15ad4b4d575118",
+      "name": "profilo",
+      "requires_native": true
+    },
+    {
+      "disabled": false,
+      "hash": "23c7aa3912b1c64700120ecd0153f9aeb2414b95666d76e6be08d3adaebfe5a6",
+      "name": "rtc",
+      "requires_native": true
+    },
+    {
+      "disabled": false,
+      "hash": "ddcddab22d6447c77817484d689908b865df77a6b3b0677b3d40c8ea32035b00",
+      "name": "s_avif_heroplayer",
+      "requires_native": true
+    },
+    {
+      "disabled": true,
+      "hash": "",
+      "name": "s_avif_heroplayer_rtc",
+      "requires_native": false
+    },
+    {
+      "disabled": false,
+      "hash": "66df03a0a23ebb2f9236cb0c328a804b1768ac82284abb4f68492c1730b90354",
+      "name": "s_blokscamera_boost",
+      "requires_native": false
+    },
+    {
+      "disabled": false,
+      "hash": "72a39cc37d8f66acb7b1ff9600020eddfa0b32d627476f7737baa634ebd49baf",
+      "name": "s_blokscamera_camera",
+      "requires_native": false
+    },
+    {
+      "disabled": false,
+      "hash": "d4a5c60058083d0395702ff86a196a03b1f547a50d38ad5a2468c5fa4d5fbf6d",
+      "name": "s_blokscamera_rtc",
+      "requires_native": true
+    },
+    {
+      "disabled": true,
+      "hash": "",
+      "name": "s_boost_mediastreaming_msysinfra",
+      "requires_native": false
+    },
+    {
+      "disabled": false,
+      "hash": "f3a74273d89c4fdc400d28f11bfde800fceeb7f6ac564fd4c1c39b9ee687c518",
+      "name": "s_boost_msys",
+      "requires_native": true
+    },
+    {
+      "disabled": false,
+      "hash": "a9d6f13e64e5c710840607cb19aae3844f3bf62340d7cc39a78a24d2a10f9d74",
+      "name": "s_boost_msysinfra",
+      "requires_native": true
+    },
+    {
+      "disabled": false,
+      "hash": "aab29cf512318c5b05a18418871b5c7bd2596a832d0af2d153ebb0577b31e8e3",
+      "name": "s_boost_multisignalanrdetector",
+      "requires_native": true
+    },
+    {
+      "disabled": false,
+      "hash": "071408eb8eb7f61da87edecfd886d62b3a87b4fd7c5f07744e80a192ea04b13b",
+      "name": "s_boost_profilo",
+      "requires_native": true
+    },
+    {
+      "disabled": false,
+      "hash": "af9d5f187557a67e16010798ee17f92559f25eee7d3727e4d56ed9c21c9d71ee",
+      "name": "s_camera_mediastreaming_rtc",
+      "requires_native": false
+    },
+    {
+      "disabled": true,
+      "hash": "",
+      "name": "s_fizz_mediastreaming",
+      "requires_native": false
+    },
+    {
+      "disabled": false,
+      "hash": "9eab1093ceff07bdefa9465246a4037b263a1d3b89f1af8ed330b286ae17d5b4",
+      "name": "s_fizz_mnshttp_msys",
+      "requires_native": true
+    },
+    {
+      "disabled": false,
+      "hash": "c091d04b97de7d158f38b2b243c0f44b67b5d4aca482df00d396f111328b0be0",
+      "name": "s_fizz_msys",
+      "requires_native": true
+    },
+    {
+      "disabled": false,
+      "hash": "5bbeaad3d4b984d959cf69d5cc4f8641a2c9352c133896595d3b1e67ce292e8e",
+      "name": "s_fizz_msysinfra",
+      "requires_native": true
+    },
+    {
+      "disabled": false,
+      "hash": "a8ce3a4ad128a218011a2c4653f84a882612798ac7f4b2a0c2335a82aaca45cf",
+      "name": "s_heroplayer_rtc",
+      "requires_native": true
+    },
+    {
+      "disabled": false,
+      "hash": "5b44573485e49555cce2f7f22a4704157538d9ad350ee9dcb05d7faa0784125f",
+      "name": "s_libunwindstack_profilo",
+      "requires_native": true
+    },
+    {
+      "disabled": false,
+      "hash": "869a9e9318a152e483757426450d340e6dca64b3be27c0d4ba2de8ce6abe84c5",
+      "name": "s_mediastreaming_msys_rtc",
+      "requires_native": true
+    },
+    {
+      "disabled": false,
+      "hash": "8292333640c8115633bd2a9430e2baa0fdaa3e04534b31c3f06ab1ac9fc1a0f0",
+      "name": "s_mediastreaming_msysinfra",
+      "requires_native": true
+    },
+    {
+      "disabled": true,
+      "hash": "",
+      "name": "s_mediastreaming_msysinfra_profilo",
+      "requires_native": false
+    },
+    {
+      "disabled": false,
+      "hash": "083124416d36273d0a6f7f2d02cdf59330736d156f56fe81d63937bab4e6894b",
+      "name": "s_mediastreaming_rtc",
+      "requires_native": true
+    },
+    {
+      "disabled": false,
+      "hash": "81ff42ff015f3ed45e2441f767f2220f7eadbbb4d9b797537379873fee066541",
+      "name": "s_mnshttp_msys_rtc",
+      "requires_native": true
+    },
+    {
+      "disabled": false,
+      "hash": "0ce4167aebc7ca7069ae3e29ec1b3d47f7c517cdf0d802f6203bef8790c554d3",
+      "name": "s_msys_rtc",
+      "requires_native": true
+    },
+    {
+      "disabled": false,
+      "hash": "9362eb9e9c1f3898fc422919afba7362fd59b94bf4bec56658eb40f24c290bc7",
+      "name": "s_multisignalanrdetector_profilo",
+      "requires_native": true
+    },
+    {
+      "disabled": false,
+      "hash": "85779d9b3586cfea6c8575b32e2fcb192ac0e3fa268e488902c3eb7fa28a8e69",
+      "name": "shared_fizz_ms_profilo",
+      "requires_native": true
+    },
+    {
+      "disabled": false,
+      "hash": "fac2e9fe914dbe48d1a75c0daed38dcc061a6768cc9c11a649a488c54daf0bb9",
+      "name": "uiqr",
+      "requires_native": false
+    }
+  ]
+}

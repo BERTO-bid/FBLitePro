@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rootLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#1a0050">
+
+    <LinearLayout
+        android:id="@+id/appBar"
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:background="#2d0080">
+        <Button
+            android:id="@+id/btnMF"
+            android:layout_width="36dp"
+            android:layout_height="28dp"
+            android:text="🍪 COOKIES"
+            android:textColor="#ffffff"
+            android:textSize="9sp"
+            android:padding="0dp"
+            android:background="#880000"
+            android:layout_marginEnd="8dp"/>
+        <TextView
+            android:id="@+id/tvAppTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="LITE PRO"
+            android:textColor="#ffffff"
+            android:textSize="14sp"
+            android:textStyle="bold"/>
+        <TextView
+            android:id="@+id/tvVersion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="v1.0"
+            android:textColor="#cc99ff"
+            android:textSize="10sp"
+            android:padding="4dp"
+            android:background="#44006699"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:gravity="center_vertical">
+
+        <Button android:id="@+id/btnEmail"
+            android:layout_width="match_parent" android:layout_height="48dp"
+            android:text="EMAIL GENERATOR"
+            android:textColor="#ffffff" android:textSize="11sp"
+            android:background="#4400aa" android:layout_marginBottom="8dp"/>
+
+        <Button android:id="@+id/btnGenNama"
+            android:layout_width="match_parent" android:layout_height="48dp"
+            android:text="GENERATE NAMA"
+            android:textColor="#ffffff" android:textSize="11sp"
+            android:background="#6600ff" android:layout_marginBottom="8dp"/>
+
+        <Button android:id="@+id/btnUbahPassword"
+            android:layout_width="match_parent" android:layout_height="48dp"
+            android:text="NOMOR HP"
+            android:textColor="#ffffff" android:textSize="11sp"
+            android:background="#5500cc" android:layout_marginBottom="8dp"/>
+
+        <Button android:id="@+id/btnSaveSheets"
+            android:layout_width="match_parent" android:layout_height="48dp"
+            android:text="PASSWORD"
+            android:textColor="#ffffff" android:textSize="11sp"
+            android:background="#6600ff" android:layout_marginBottom="8dp"/>
+
+        <Button android:id="@+id/btn2FA"
+            android:layout_width="match_parent" android:layout_height="48dp"
+            android:text="2FA SECRET"
+            android:textColor="#ffffff" android:textSize="11sp"
+            android:background="#5500cc" android:layout_marginBottom="8dp"/>
+
+        <Button android:id="@+id/btnClearData"
+            android:layout_width="match_parent" android:layout_height="48dp"
+            android:text="URL SHEETS"
+            android:textColor="#ffffff" android:textSize="11sp"
+            android:background="#6600ff" android:layout_marginBottom="8dp"/>
+
+        <!-- MODE SIMPAN: URL atau DOWNLOAD -->
+        <Button android:id="@+id/btnPackageName"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginBottom="4dp"
+            android:text="PKG: AUTO DETECT"
+            android:textSize="11sp"
+            android:textColor="#ffffff"
+            android:background="#006633" />
+
+        <!-- MODE FB: Lite atau Katana -->
+        <Button android:id="@+id/btnFBMode"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginBottom="4dp"
+            android:text="📱 FB MODE: LITE"
+            android:textSize="11sp"
+            android:textColor="#ffffff"
+            android:background="#004488" />
+
+        <Button android:id="@+id/btnSaveMode"
+            android:layout_width="match_parent" android:layout_height="48dp"
+            android:text="💾 MODE: URL SHEETS"
+            android:textColor="#ffffff" android:textSize="11sp"
+            android:background="#330088" android:layout_marginBottom="16dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <Button android:id="@+id/btnThemes"
+                android:layout_width="0dp" android:layout_height="44dp"
+                android:layout_weight="1"
+                android:text="THEMES"
+                android:textColor="#ffffff" android:textSize="10sp"
+                android:background="#7700ff" android:layout_marginEnd="8dp"/>
+            <Button android:id="@+id/btnFlot"
+                android:layout_width="0dp" android:layout_height="44dp"
+                android:layout_weight="1"
+                android:text="FLOT"
+                android:textColor="#ffffff" android:textSize="10sp"
+                android:background="#5500bb"/>
+        </LinearLayout>
+
+    </LinearLayout>
+</LinearLayout>
