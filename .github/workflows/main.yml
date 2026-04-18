@@ -31,70 +31,79 @@ jobs:
           sdkmanager --update
           sdkmanager "platforms;android-35" "build-tools;35.0.0"
 
-      - name: ⚙️ Install apktool
+      - name: ⚙️ Install apktool via apt
         run: |
-          wget -q https://bitbucket.org/iBotPeaches/apktool/downloads/apktool_2.9.3.jar -O apktool.jar
-          echo '#!/bin/bash' > apktool
-          echo 'java -jar '"$(pwd)"'/apktool.jar "$@"' >> apktool
-          chmod +x apktool
-          sudo mv apktool /usr/local/bin/
-          sudo mv apktool.jar /usr/local/bin/
+          sudo apt-get update -qq
+          sudo apt-get install -y apktool
+          apktool --version
 
       - name: 🏗️ Install kotlinc
         run: |
-          wget -q https://github.com/JetBrains/kotlin/releases/download/v1.9.24/kotlin-compiler-1.9.24.zip -O kotlinc.zip
-          unzip -q kotlinc.zip
-          sudo mv kotlinc /usr/local/
-          sudo ln -sf /usr/local/kotlinc/bin/kotlinc /usr/local/bin/kotlinc
+          sudo apt-get install -y kotlin || true
+          kotlinc -version 2>/dev/null || {
+            wget -q https://github.com/JetBrains/kotlin/releases/download/v1.9.24/kotlin-compiler-1.9.24.zip -O kotlinc.zip
+            unzip -q kotlinc.zip
+            sudo mv kotlinc /usr/local/
+            sudo ln -sf /usr/local/kotlinc/bin/kotlinc /usr/local/bin/kotlinc
+          }
+          kotlinc -version
 
       - name: 🔓 Decompile FB Lite APK
         run: |
+          ls fblite/
           apktool d fblite/Facebook_Lite.apk -o fblite_decoded --no-src -f
           echo "✅ FB Lite decompiled"
           ls fblite_decoded/
 
       - name: 💉 Copy Spectrum Resources ke FB Lite
         run: |
-          # Copy semua res Spectrum
-          cp -r spectrum/res/layout/*.xml   fblite_decoded/res/layout/    2>/dev/null || true
-          cp -r spectrum/res/drawable/*.xml  fblite_decoded/res/drawable/  2>/dev/null || true
-          cp -r spectrum/res/xml/*.xml       fblite_decoded/res/xml/       2>/dev/null || true
+          mkdir -p fblite_decoded/res/layout
+          mkdir -p fblite_decoded/res/drawable
+          mkdir -p fblite_decoded/res/xml
+          mkdir -p fblite_decoded/res/values
 
-          # Merge strings — tambah strings Spectrum ke strings.xml FB Lite
+          cp spectrum/res/layout/*.xml   fblite_decoded/res/layout/   2>/dev/null || true
+          cp spectrum/res/drawable/*.xml  fblite_decoded/res/drawable/ 2>/dev/null || true
+          cp spectrum/res/xml/*.xml       fblite_decoded/res/xml/      2>/dev/null || true
+          cp spectrum/res/values/spectrum_styles.xml fblite_decoded/res/values/ 2>/dev/null || true
+
           python3 << 'PYEOF'
-          import re
+          import re, os
 
-          with open('spectrum/res/values/strings.xml') as f:
-              sp = f.read()
-          with open('fblite_decoded/res/values/strings.xml') as f:
-              fb = f.read()
+          sp_file = 'spectrum/res/values/strings.xml'
+          fb_file  = 'fblite_decoded/res/values/strings.xml'
+
+          if not os.path.exists(sp_file) or not os.path.exists(fb_file):
+              print("strings.xml not found, skip")
+              exit(0)
+
+          with open(sp_file) as f: sp = f.read()
+          with open(fb_file) as f: fb = f.read()
 
           entries = re.findall(r'<string name="[^"]*">.*?</string>', sp, re.DOTALL)
+          added = 0
           for e in entries:
               nm = re.search(r'name="([^"]*)"', e).group(1)
               if nm not in fb:
                   fb = fb.replace('</resources>', f'    {e}\n</resources>')
-          with open('fblite_decoded/res/values/strings.xml', 'w') as f:
-              f.write(fb)
-          print("✅ Strings merged")
+                  added += 1
+          with open(fb_file, 'w') as f: f.write(fb)
+          print(f"✅ {added} strings merged")
           PYEOF
-
-          # Tambah styles Spectrum
-          cp spectrum/res/values/spectrum_styles.xml fblite_decoded/res/values/
 
           echo "✅ Resources injected"
 
       - name: 💉 Inject Spectrum ke AndroidManifest FB Lite
         run: |
           python3 << 'PYEOF'
+          import re
+
           with open('fblite_decoded/AndroidManifest.xml', 'r', encoding='utf-8') as f:
               manifest = f.read()
 
           with open('spectrum/SPECTRUM_MANIFEST_INJECT.xml', 'r') as f:
               inject = f.read()
 
-          # Hapus komentar dari inject block
-          import re
           inject_clean = re.sub(r'<!--.*?-->', '', inject, flags=re.DOTALL).strip()
 
           if 'com.spectrum.v2.FloatingService' not in manifest:
@@ -108,22 +117,22 @@ jobs:
 
       - name: 🔧 Compile Spectrum Kotlin -> DEX
         run: |
-          # Kumpulkan semua .kt
-          KT_FILES=$(find spectrum/java -name "*.kt" | tr '\n' ' ')
-
-          # Cari android.jar
           ANDROID_JAR=$(find $ANDROID_SDK_ROOT/platforms -name "android.jar" | sort -r | head -1)
-          echo "Using: $ANDROID_JAR"
+          echo "android.jar: $ANDROID_JAR"
 
-          # Compile .kt -> .jar
-          mkdir -p spectrum_compiled/classes
+          KT_FILES=$(find spectrum/java -name "*.kt" | tr '\n' ' ')
+          echo "Kotlin files: $(echo $KT_FILES | wc -w)"
+
+          mkdir -p spectrum_compiled
+
           kotlinc $KT_FILES \
-            -classpath "$ANDROID_JAR:$(find $ANDROID_SDK_ROOT -name 'core-ktx*.jar' 2>/dev/null | head -1)" \
+            -classpath "$ANDROID_JAR" \
             -d spectrum_compiled/spectrum.jar \
             -jvm-target 1.8 \
-            -nowarn || echo "⚠️ Kotlin compile warnings (lanjut)"
+            -nowarn 2>&1 | tail -5 || echo "⚠️ Compile warnings (lanjut)"
 
-          # .jar -> .dex
+          ls -lh spectrum_compiled/
+
           mkdir -p spectrum_compiled/dex
           $ANDROID_SDK_ROOT/build-tools/35.0.0/d8 \
             spectrum_compiled/spectrum.jar \
@@ -131,12 +140,10 @@ jobs:
             --classpath "$ANDROID_JAR" \
             --min-api 24
 
-          echo "✅ Spectrum DEX compiled: $(ls -la spectrum_compiled/dex/)"
+          echo "✅ DEX: $(ls -lh spectrum_compiled/dex/)"
 
       - name: 💉 Inject Spectrum DEX ke FB Lite
         run: |
-          # FB Lite punya classes.dex → kita tambah sebagai classes2.dex
-          # apktool akan handle multidex saat recompile
           cp spectrum_compiled/dex/classes.dex fblite_decoded/classes2.dex
           echo "✅ classes2.dex injected"
           ls -la fblite_decoded/*.dex
@@ -144,16 +151,16 @@ jobs:
       - name: 🔨 Recompile APK
         run: |
           apktool b fblite_decoded -o FBLitePro_unsigned.apk --use-aapt2
-          echo "✅ Recompiled: $(ls -lh FBLitePro_unsigned.apk)"
+          ls -lh FBLitePro_unsigned.apk
 
-      - name: 🔑 Generate Keystore & Sign APK
+      - name: 🔑 Sign APK
         run: |
           keytool -genkeypair -v \
             -keystore litepro.keystore \
             -keyalg RSA -keysize 2048 -validity 10000 \
             -alias litepro \
-            -dname "CN=LitePro, OU=Dev, O=LitePro, L=ID, S=ID, C=ID" \
-            -storepass litepro123 -keypass litepro123
+            -dname "CN=LitePro,OU=Dev,O=LitePro,L=ID,S=ID,C=ID" \
+            -storepass litepro123 -keypass litepro123 2>/dev/null
 
           $ANDROID_SDK_ROOT/build-tools/35.0.0/apksigner sign \
             --ks litepro.keystore \
@@ -165,7 +172,7 @@ jobs:
 
           echo "✅ Signed: $(ls -lh FBLitePro_signed.apk)"
 
-      - name: 🏷️ Set Version Tag
+      - name: 🏷️ Tag & Rename
         id: ver
         run: |
           TAG="v$(date +'%Y%m%d-%H%M')"
@@ -186,23 +193,18 @@ jobs:
           tag_name: ${{ steps.ver.outputs.tag }}
           name: "FB Lite Pro — ${{ steps.ver.outputs.tag }}"
           body: |
-            ### ✅ FB Lite + Spectrum — Build Otomatis
+            ### ✅ FB Lite + Spectrum — 1 APK
 
-            **Satu APK. Semua fitur berjalan nyata.**
+            - ⚙️ Gear → menu Spectrum
+            - 🍪 Ekstrak cookies real (satu proses)
+            - 👤 Upload foto profil otomatis
+            - 💾 Save CSV ke Download
+            - 🗑️ Clear data FB Lite
+            - 📧 Email temp + 🔐 2FA TOTP
 
-            - ⚙️ Gear → buka menu Spectrum (dalam FB Lite)
-            - 🍪 Ekstrak cookies real (satu proses = CookieManager langsung)
-            - 👤 Upload foto profil via Accessibility klik otomatis seperti manusia
-            - 💾 Save CSV ke folder Download
-            - 🗑️ Clear data FB Lite sendiri
-            - 📧 Email temp generator
-            - 🔐 2FA TOTP
+            **Setelah install:** Pengaturan → Aksesibilitas → aktifkan Lite Pro
 
-            **Setelah install:**
-            1. Aktifkan: Pengaturan → Aksesibilitas → Lite Pro
-            2. Login FB Lite → floating Spectrum muncul otomatis
-
-            **Commit:** `${{ github.sha }}`
+            Commit: `${{ github.sha }}`
           files: FBLitePro-*.apk
           fail_on_unmatched_files: false
         env:
