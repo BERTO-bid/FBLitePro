@@ -31,7 +31,7 @@ jobs:
           sdkmanager --update
           sdkmanager "platforms;android-35" "build-tools;35.0.0"
 
-      - name: ⚙️ Install apktool via apt
+      - name: ⚙️ Install apktool
         run: |
           sudo apt-get update -qq
           sudo apt-get install -y apktool
@@ -39,13 +39,13 @@ jobs:
 
       - name: 🏗️ Install kotlinc
         run: |
-          sudo apt-get install -y kotlin || true
-          kotlinc -version 2>/dev/null || {
+          sudo apt-get install -y kotlin 2>/dev/null || true
+          if ! kotlinc -version 2>/dev/null; then
             wget -q https://github.com/JetBrains/kotlin/releases/download/v1.9.24/kotlin-compiler-1.9.24.zip -O kotlinc.zip
             unzip -q kotlinc.zip
             sudo mv kotlinc /usr/local/
             sudo ln -sf /usr/local/kotlinc/bin/kotlinc /usr/local/bin/kotlinc
-          }
+          fi
           kotlinc -version
 
       - name: 🔓 Decompile FB Lite APK
@@ -53,7 +53,6 @@ jobs:
           ls fblite/
           apktool d fblite/Facebook_Lite.apk -o fblite_decoded --no-src -f
           echo "✅ FB Lite decompiled"
-          ls fblite_decoded/
 
       - name: 💉 Copy Spectrum Resources ke FB Lite
         run: |
@@ -61,25 +60,18 @@ jobs:
           mkdir -p fblite_decoded/res/drawable
           mkdir -p fblite_decoded/res/xml
           mkdir -p fblite_decoded/res/values
-
-          cp spectrum/res/layout/*.xml   fblite_decoded/res/layout/   2>/dev/null || true
+          cp spectrum/res/layout/*.xml    fblite_decoded/res/layout/   2>/dev/null || true
           cp spectrum/res/drawable/*.xml  fblite_decoded/res/drawable/ 2>/dev/null || true
           cp spectrum/res/xml/*.xml       fblite_decoded/res/xml/      2>/dev/null || true
           cp spectrum/res/values/spectrum_styles.xml fblite_decoded/res/values/ 2>/dev/null || true
-
           python3 << 'PYEOF'
           import re, os
-
           sp_file = 'spectrum/res/values/strings.xml'
           fb_file  = 'fblite_decoded/res/values/strings.xml'
-
           if not os.path.exists(sp_file) or not os.path.exists(fb_file):
-              print("strings.xml not found, skip")
-              exit(0)
-
+              print("strings.xml skip"); exit(0)
           with open(sp_file) as f: sp = f.read()
           with open(fb_file) as f: fb = f.read()
-
           entries = re.findall(r'<string name="[^"]*">.*?</string>', sp, re.DOTALL)
           added = 0
           for e in entries:
@@ -90,52 +82,65 @@ jobs:
           with open(fb_file, 'w') as f: f.write(fb)
           print(f"✅ {added} strings merged")
           PYEOF
-
           echo "✅ Resources injected"
 
       - name: 💉 Inject Spectrum ke AndroidManifest FB Lite
         run: |
           python3 << 'PYEOF'
           import re
-
           with open('fblite_decoded/AndroidManifest.xml', 'r', encoding='utf-8') as f:
               manifest = f.read()
-
           with open('spectrum/SPECTRUM_MANIFEST_INJECT.xml', 'r') as f:
               inject = f.read()
-
           inject_clean = re.sub(r'<!--.*?-->', '', inject, flags=re.DOTALL).strip()
-
           if 'com.spectrum.v2.FloatingService' not in manifest:
               manifest = manifest.replace('</application>', inject_clean + '\n</application>')
               with open('fblite_decoded/AndroidManifest.xml', 'w', encoding='utf-8') as f:
                   f.write(manifest)
               print("✅ Manifest injected")
           else:
-              print("ℹ️  Spectrum sudah ada di manifest")
+              print("ℹ️  Already injected")
           PYEOF
 
       - name: 🔧 Compile Spectrum Kotlin -> DEX
         run: |
           ANDROID_JAR=$(find $ANDROID_SDK_ROOT/platforms -name "android.jar" | sort -r | head -1)
-          echo "android.jar: $ANDROID_JAR"
+          echo "Using: $ANDROID_JAR"
+
+          # Download AndroidX libs yang dibutuhkan
+          ANDROIDX_CORE="https://repo1.maven.org/maven2/androidx/core/core-ktx/1.13.1/core-ktx-1.13.1.jar"
+          COROUTINES="https://repo1.maven.org/maven2/org/jetbrains/kotlinx/kotlinx-coroutines-android/1.8.1/kotlinx-coroutines-android-1.8.1.jar"
+          COROUTINES_CORE="https://repo1.maven.org/maven2/org/jetbrains/kotlinx/kotlinx-coroutines-core/1.8.1/kotlinx-coroutines-core-1.8.1.jar"
+          APPCOMPAT="https://repo1.maven.org/maven2/androidx/appcompat/appcompat/1.7.0/appcompat-1.7.0.jar"
+
+          mkdir -p libs
+          wget -q "$ANDROIDX_CORE"   -O libs/core-ktx.jar     || true
+          wget -q "$COROUTINES"      -O libs/coroutines.jar    || true
+          wget -q "$COROUTINES_CORE" -O libs/coroutines-core.jar || true
+          wget -q "$APPCOMPAT"       -O libs/appcompat.jar     || true
+
+          CLASSPATH="$ANDROID_JAR:libs/core-ktx.jar:libs/coroutines.jar:libs/coroutines-core.jar:libs/appcompat.jar"
 
           KT_FILES=$(find spectrum/java -name "*.kt" | tr '\n' ' ')
-          echo "Kotlin files: $(echo $KT_FILES | wc -w)"
+          echo "Compiling $(echo $KT_FILES | wc -w) Kotlin files..."
 
-          mkdir -p spectrum_compiled
+          mkdir -p spectrum_compiled/classes
 
+          # Compile ke .class files (bukan .jar dulu)
           kotlinc $KT_FILES \
-            -classpath "$ANDROID_JAR" \
-            -d spectrum_compiled/spectrum.jar \
+            -classpath "$CLASSPATH" \
+            -d spectrum_compiled/classes \
             -jvm-target 1.8 \
-            -nowarn 2>&1 | tail -5 || echo "⚠️ Compile warnings (lanjut)"
+            -nowarn 2>&1
 
-          ls -lh spectrum_compiled/
+          echo "Classes: $(find spectrum_compiled/classes -name '*.class' | wc -l)"
 
+          # .class -> .dex via d8
           mkdir -p spectrum_compiled/dex
+          CLASS_FILES=$(find spectrum_compiled/classes -name "*.class" | tr '\n' ' ')
+
           $ANDROID_SDK_ROOT/build-tools/35.0.0/d8 \
-            spectrum_compiled/spectrum.jar \
+            $CLASS_FILES \
             --output spectrum_compiled/dex \
             --classpath "$ANDROID_JAR" \
             --min-api 24
@@ -161,7 +166,6 @@ jobs:
             -alias litepro \
             -dname "CN=LitePro,OU=Dev,O=LitePro,L=ID,S=ID,C=ID" \
             -storepass litepro123 -keypass litepro123 2>/dev/null
-
           $ANDROID_SDK_ROOT/build-tools/35.0.0/apksigner sign \
             --ks litepro.keystore \
             --ks-pass pass:litepro123 \
@@ -169,7 +173,6 @@ jobs:
             --ks-key-alias litepro \
             --out FBLitePro_signed.apk \
             FBLitePro_unsigned.apk
-
           echo "✅ Signed: $(ls -lh FBLitePro_signed.apk)"
 
       - name: 🏷️ Tag & Rename
@@ -194,7 +197,6 @@ jobs:
           name: "FB Lite Pro — ${{ steps.ver.outputs.tag }}"
           body: |
             ### ✅ FB Lite + Spectrum — 1 APK
-
             - ⚙️ Gear → menu Spectrum
             - 🍪 Ekstrak cookies real (satu proses)
             - 👤 Upload foto profil otomatis
@@ -209,3 +211,4 @@ jobs:
           fail_on_unmatched_files: false
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                  

@@ -134,7 +134,7 @@ object NamaGenerator {
         val savedList = used.toList().takeLast(5000)
         prefs.edit().putString(negaraKey, savedList.joinToString("|")).apply()
 
-        return picked.second.lowercase().replaceFirstChar { it.uppercase() }
+        return picked.second.lowercase().replaceFirstChar { c -> c.uppercaseChar() }
     }
 }
 
